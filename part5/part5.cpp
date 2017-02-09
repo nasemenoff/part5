@@ -8,6 +8,11 @@ using namespace std;
 
 const double Pi = 3.1415926535;
 
+struct Cylinder {
+	double Volume;
+	double Square;
+};
+
 void printSymbol(char s, int n) {
 	for (int i = 0; i < n; i++) {
 		cout << s;
@@ -19,24 +24,28 @@ int factorial(int n) {
 	if (n == 0) {
 		return 1;
 	}
-	return n * factorial(n - 1);
+	int f = 1;
+	for (int i = 1; i <= n; i++) {
+		f *= i;
+	}
+	return f;
 }
 
 int getMax(int x, int y) {
-	if (x >= y) {
-		return x;
-	} else {
-		return y;
-	}
+	int res = 0;
+	x >= y ? res = x : res = y;
+	return res;
 }
 
 double cylinderVolume(int radius, int height) {
 	return Pi * pow(radius, 2) * height;
 }
 
-void cylinderSquareAndVolume(int radius, int height) {
-	double S = 2 * Pi * radius * (height + radius);
-	double V = cylinderVolume(radius, height);
+Cylinder cylinderSquareAndVolume(int radius, int height) {
+	Cylinder res;
+	res.Square = 2 * Pi * radius * (height + radius);
+	res.Volume = cylinderVolume(radius, height);
+	return res;
 }
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -47,7 +56,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	printSymbol('*', 10);
 
 	//26
-	cylinderSquareAndVolume(3, 9);
+	Cylinder cylinder = cylinderSquareAndVolume(3, 9);
+	cout << "Объем цилиндра: " << cylinder.Volume << ", площадь цилиндра: " << cylinder.Square << endl;
 
 	//27
 	cout.width(5);
